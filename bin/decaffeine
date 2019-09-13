@@ -1,3 +1,28 @@
 #!/usr/bin/env node
+const path = require('path')
+const build = require('../src/build')
 
-console.log('HELLO DECAFFEINE')
+const options = process.argv.slice(2)
+
+const optionMap = {
+  build() {
+    build(path.resolve())
+  },
+}
+
+if (!options.length) {
+  // eslint-disable-next-line no-console
+  console.log('지원하는 명령어: build')
+  process.exit(1)
+}
+
+const command = options[0]
+const cls = optionMap[command]
+
+if (!cls) {
+  // eslint-disable-next-line no-console
+  console.log('지원하지 않는 명령입니다.')
+  process.exit(1)
+}
+
+cls()
