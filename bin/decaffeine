@@ -5,7 +5,7 @@ const build = require('../src/build')
 const options = process.argv.slice(2)
 
 const optionMap = {
-  build() {
+  async build() {
     build(path.resolve())
   },
 }
@@ -25,4 +25,7 @@ if (!cls) {
   process.exit(1)
 }
 
-cls()
+cls().catch((e) => {
+  // eslint-disable-next-line no-console
+  console.error(`=== DECAFFEINE ERR\n${e}`)
+})

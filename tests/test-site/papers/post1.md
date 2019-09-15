@@ -1,6 +1,6 @@
 ---
-createdAt: 2018-01-01 05:12:34
-modifiedAt: 2019-06-05 13:00:00
+date: 2019-09-14
+path: /blog/post1
 ---
 
 # foo
