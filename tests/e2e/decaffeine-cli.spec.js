@@ -36,4 +36,9 @@ describe('decaffeine build', () => {
     expect(pfiles).toContain('post1')
     expect(pfiles).toContain('post2')
   })
+
+  it('multiple builds should work.', async () => {
+    await expect(execBuild()).resolves.not.toThrow()
+    await expect(execBuild()).resolves.not.toThrow()
+  })
 })
