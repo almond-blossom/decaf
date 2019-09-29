@@ -3,14 +3,10 @@ const path = require('path')
 const build = require('../src/build')
 
 const options = process.argv.slice(2)
-const DEBUG = !!process.env.DEBUG
 
 const optionMap = {
   async build() {
     return build(path.resolve())
-      .catch((e) => {
-        throw new Error(DEBUG ? e.stdout : 'build failed')
-      })
   },
 }
 
