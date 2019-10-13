@@ -30,9 +30,9 @@ describe('decaffeine build', () => {
 
     const dfiles = await readdir(`${projectPath}/dist`)
     expect(dfiles).toContain('index.html')
-    expect(dfiles).toContain('blog')
+    expect(dfiles).toContain('papers')
 
-    const pfiles = await readdir(`${projectPath}/dist/blog`)
+    const pfiles = await readdir(`${projectPath}/dist/papers`)
     expect(pfiles).toContain('post1')
     expect(pfiles).toContain('post2')
   })
