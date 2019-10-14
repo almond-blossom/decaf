@@ -38,6 +38,10 @@ export const query = graphql`
             slug
           }
           excerpt
+          headings {
+            depth
+            value
+          }
         }
       }
     }

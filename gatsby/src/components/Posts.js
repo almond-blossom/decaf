@@ -1,12 +1,49 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import { css } from '@emotion/core'
-import { rhythm } from '../utils/typography'
 
-export default ({ data }) => (
+const resolveHeading = (node) => {
+  const result = {
+    title: '(Untitled Post)',
+    isUntitled: true,
+  }
+
+  if (!node || !Array.isArray(node.headings)) return result
+
+  const heading = node.headings.find((head) => (
+    head.depth === 1 && typeof head.value === 'string'
+  ))
+
+  if (!heading) return result
+
+  result.title = heading.value
+  result.isUntitled = false
+
+  return result
+}
+
+const Item = ({ heading: { title, isUntitled } }) => (
+  <li
+    css={css`
+      color: ${isUntitled ? '#888' : '#000'};
+    `}
+  >
+    {title}
+  </li>
+)
+
+Item.propTypes = {
+  heading: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    isUntitled: PropTypes.bool,
+  }).isRequired,
+}
+
+const Posts = ({ data }) => (
   <div>
     {data.allMarkdownRemark.edges.map(({ node }) => (
-      <div key={node.id}>
+      <ul key={node.id}>
         <Link
           to={node.fields.slug}
           css={css`
@@ -14,23 +51,31 @@ export default ({ data }) => (
             color: inherit;
           `}
         >
-          <h3
-            css={css`
-              margin-bottom: ${rhythm(1 / 4)};
-            `}
-          >
-            {node.frontmatter.title}{' '}
-            <span
-              css={css`
-                color: #bbb;
-              `}
-            >
-              — {node.frontmatter.date}
-            </span>
-          </h3>
-          <p>{node.excerpt}</p>
+          <Item heading={resolveHeading(node)} />
         </Link>
-      </div>
+      </ul>
     ))}
   </div>
 )
+
+Posts.propTypes = {
+  data: PropTypes.shape({
+    allMarkdownRemark: PropTypes.shape({
+      totalCount: PropTypes.number.isRequired,
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            frontmatter: PropTypes.shape({
+              title: PropTypes.string.isRequired,
+            }),
+            fields: PropTypes.shape({
+              slug: PropTypes.string.isRequired,
+            }),
+          }),
+        }).isRequired,
+      ),
+    }),
+  }).isRequired,
+}
+
+export default Posts
