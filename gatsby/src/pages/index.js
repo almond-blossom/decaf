@@ -30,6 +30,9 @@ export const query = graphql`
       edges {
         node {
           id
+          frontmatter {
+            tags
+          }
           fields {
             slug
           }

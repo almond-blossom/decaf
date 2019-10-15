@@ -23,13 +23,30 @@ const resolveHeading = (node) => {
   return result
 }
 
-const Item = ({ heading: { title, isUntitled } }) => (
+const Item = ({
+  heading: { title, isUntitled },
+  tags,
+}) => (
   <li
     css={css`
       color: ${isUntitled ? '#888' : '#000'};
     `}
   >
     {title}
+    {tags.map((tag, i) => ({ key: tag + i, tag })).map((obj) => (
+      <span
+        key={obj.key}
+        css={css`
+          font-size: .7em;
+          padding: .2em;
+          border: 1px solid #999;
+          border-radius: 3px;
+          margin-left: .5em;
+        `}
+      >
+        {obj.tag}
+      </span>
+    ))}
   </li>
 )
 
@@ -38,6 +55,7 @@ Item.propTypes = {
     title: PropTypes.string.isRequired,
     isUntitled: PropTypes.bool,
   }).isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 const Posts = ({ data }) => (
@@ -51,7 +69,7 @@ const Posts = ({ data }) => (
             color: inherit;
           `}
         >
-          <Item heading={resolveHeading(node)} />
+          <Item heading={resolveHeading(node)} tags={node.frontmatter.tags} />
         </Link>
       </ul>
     ))}
@@ -66,7 +84,7 @@ Posts.propTypes = {
         PropTypes.shape({
           node: PropTypes.shape({
             frontmatter: PropTypes.shape({
-              title: PropTypes.string.isRequired,
+              tags: PropTypes.arrayOf(PropTypes.string).isRequired,
             }),
             fields: PropTypes.shape({
               slug: PropTypes.string.isRequired,

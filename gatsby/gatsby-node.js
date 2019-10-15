@@ -52,3 +52,29 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     })
   }
 }
+
+exports.createSchemaCustomization = ({ actions, schema }) => {
+  const { createTypes } = actions
+  const typeDefs = [
+    schema.buildObjectType({
+      name: 'MarkdownRemark',
+      fields: {
+        frontmatter: 'Frontmatter',
+      },
+      interfaces: ['Node'],
+    }),
+    schema.buildObjectType({
+      name: 'Frontmatter',
+      fields: {
+        tags: {
+          type: '[String!]!',
+          resolve: (src) => (
+            (src.tags || '').split(',').filter(Boolean).map((s) => s.trim())
+          ),
+        },
+      },
+      interfaces: ['Node'],
+    }),
+  ]
+  createTypes(typeDefs)
+}
