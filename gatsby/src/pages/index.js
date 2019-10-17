@@ -18,7 +18,7 @@ export default ({ data }) => (
           Knolwdge Base
       </h1>
       <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
-      <Posts data={data}></Posts>
+      <Posts data={data} />
     </div>
   </Layout>
 )
