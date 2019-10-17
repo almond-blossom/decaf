@@ -35,6 +35,8 @@ describe('decaffeine build', () => {
     const pfiles = await readdir(`${projectPath}/dist/papers`)
     expect(pfiles).toContain('post1')
     expect(pfiles).toContain('post2')
+    expect(pfiles).toContain('post3')
+    expect(pfiles).toContain('post4')
   })
 
   it('multiple builds should work.', async () => {

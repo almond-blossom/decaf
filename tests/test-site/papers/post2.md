@@ -1,7 +1,8 @@
 ---
 date: 2019-09-15
-path: /blog/post2
+tags: one, two, one
 ---
 
-# bar
+# duplcated tag post
+
 테스트2 입니다.
