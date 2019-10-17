@@ -68,9 +68,13 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       fields: {
         tags: {
           type: '[String!]!',
-          resolve: (src) => (
-            (src.tags || '').split(',').filter(Boolean).map((s) => s.trim())
-          ),
+          resolve: (src) => {
+            const tags = (src.tags || '')
+              .split(',')
+              .filter(Boolean)
+              .map((s) => s.trim())
+            return [...new Set(tags)]
+          },
         },
       },
       interfaces: ['Node'],
