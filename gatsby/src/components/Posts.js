@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import { css } from '@emotion/core'
+import Tag from './atoms/Tag'
 
 const resolveHeading = (node) => {
   const result = {
@@ -34,18 +35,7 @@ const Item = ({
   >
     {title}
     {tags.map((tag, i) => ({ key: tag + i, tag })).map((obj) => (
-      <span
-        key={obj.key}
-        css={css`
-          font-size: .7em;
-          padding: .2em;
-          border: 1px solid #999;
-          border-radius: 3px;
-          margin-left: .5em;
-        `}
-      >
-        {obj.tag}
-      </span>
+      <Tag key={obj.key}>{obj.tag}</Tag>
     ))}
   </li>
 )
