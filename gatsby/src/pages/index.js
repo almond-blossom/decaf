@@ -1,11 +1,12 @@
-import React from 'react'
-import { graphql } from 'gatsby'
 import { css } from '@emotion/core'
+import { graphql } from 'gatsby'
+import PropTypes from 'prop-types'
+import React from 'react'
 import Layout from '../components/Layout'
-import SEO from '../components/SEO'
 import Posts from '../components/Posts'
+import SEO from '../components/SEO'
 
-export default ({ data }) => (
+const Page = ({ data }) => (
   <Layout>
     <SEO title="Home" />
     <div>
@@ -22,6 +23,16 @@ export default ({ data }) => (
     </div>
   </Layout>
 )
+
+Page.propTypes = {
+  data: PropTypes.shape({
+    allMarkdownRemark: PropTypes.shape({
+      totalCount: PropTypes.number.isRequired,
+    }),
+  }).isRequired,
+}
+
+export default Page
 
 export const query = graphql`
   query {
