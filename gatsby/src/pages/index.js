@@ -5,6 +5,7 @@ import React from 'react'
 import Layout from '../components/Layout'
 import Posts from '../components/Posts'
 import SEO from '../components/SEO'
+import Tag from '../components/atoms/Tag'
 
 const Page = ({ data }) => (
   <Layout>
@@ -18,6 +19,18 @@ const Page = ({ data }) => (
       >
           Knolwdge Base
       </h1>
+      <h4>Tags</h4>
+      <ul
+        css={css`
+          list-style-type: none;
+          display: flex;
+          flex-wrap: wrap;
+        `}
+      >
+        {data.allMarkdownRemark.group.map((tag) => (
+          <li><Tag>{tag.fieldValue} ({tag.totalCount})</Tag></li>
+        ))}
+      </ul>
       <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
       <Posts data={data} />
     </div>
@@ -28,6 +41,12 @@ Page.propTypes = {
   data: PropTypes.shape({
     allMarkdownRemark: PropTypes.shape({
       totalCount: PropTypes.number.isRequired,
+      group: PropTypes.arrayOf(
+        PropTypes.shape({
+          fieldValue: PropTypes.string.isRequired,
+          totalCount: PropTypes.number.isRequired,
+        }),
+      ).isRequired,
     }),
   }).isRequired,
 }
@@ -38,6 +57,10 @@ export const query = graphql`
   query {
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       totalCount
+      group(field: frontmatter___tags) {
+        fieldValue
+        totalCount
+      }
       edges {
         node {
           id
