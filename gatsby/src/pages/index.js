@@ -5,7 +5,8 @@ import React from 'react'
 import Layout from '../components/Layout'
 import Posts from '../components/Posts'
 import SEO from '../components/SEO'
-import Tag from '../components/atoms/Tag'
+import Header from '../components/atoms/Header'
+import Tag from '../components/molecules/Tag'
 
 const Page = ({ data }) => (
   <Layout>
@@ -19,7 +20,7 @@ const Page = ({ data }) => (
       >
           Knolwdge Base
       </h1>
-      <h4>Tags</h4>
+      <Header>Tags</Header>
       <ul
         css={css`
           list-style-type: none;
@@ -28,10 +29,10 @@ const Page = ({ data }) => (
         `}
       >
         {data.allMarkdownRemark.group.map((tag) => (
-          <li><Tag>{tag.fieldValue} ({tag.totalCount})</Tag></li>
+          <li key={tag.fieldValue}><Tag name={tag.fieldValue} count={tag.totalCount} /></li>
         ))}
       </ul>
-      <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
+      <Header>{data.allMarkdownRemark.totalCount} Posts</Header>
       <Posts data={data} />
     </div>
   </Layout>

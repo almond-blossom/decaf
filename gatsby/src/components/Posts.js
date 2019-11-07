@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import { css } from '@emotion/core'
-import Tag from './atoms/Tag'
+import Tag from './molecules/Tag'
 
 const resolveHeading = (node) => {
   const result = {
@@ -34,8 +34,8 @@ const Item = ({
     `}
   >
     {title}
-    {tags.map((tag, i) => ({ key: tag + i, tag })).map((obj) => (
-      <Tag key={obj.key}>{obj.tag}</Tag>
+    {tags.map((tag) => (
+      <Tag key={tag} name={tag} />
     ))}
   </li>
 )
