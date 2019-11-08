@@ -2,7 +2,7 @@ import { css } from '@emotion/core'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Header = ({ children }) => (
+const Heading = ({ children }) => (
   <div
     css={css`
       margin: 0;
@@ -20,8 +20,8 @@ const Header = ({ children }) => (
   </div>
 )
 
-Header.propTypes = {
+Heading.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Header
+export default Heading
