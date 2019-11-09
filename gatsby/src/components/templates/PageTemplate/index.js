@@ -2,11 +2,15 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { css } from '@emotion/core'
 
+const HEADER_HEIGHT = '4rem'
+
 const Header = ({ children }) => (
   <div
     css={css`
       position: fixed;
       top: 0;
+      left: 0;
+      height: ${HEADER_HEIGHT};
       width: 100%;
       z-index: 999;
     `}
@@ -19,10 +23,26 @@ Header.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
+const Body = ({ children }) => (
+  <div
+    css={css`
+      margin-top: ${HEADER_HEIGHT};
+      padding: 4%;
+    `}
+  >
+    {children}
+  </div>
+)
+
+Body.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
 const Footer = ({ children }) => (
   <div
     css={css`
       margin-top: auto;
+      padding: 0 5%;
     `}
   >
     {children}
@@ -34,9 +54,16 @@ Footer.propTypes = {
 }
 
 const PageTemplate = ({ header, children, footer }) => (
-  <div>
+  <div
+    css={css`
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: .5em;
+    `}
+  >
     <Header>{header}</Header>
-    <div>{children}</div>
+    <Body>{children}</Body>
     <Footer>{footer}</Footer>
   </div>
 )
