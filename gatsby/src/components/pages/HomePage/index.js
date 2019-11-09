@@ -43,14 +43,6 @@ const HomePage = () => {
       footer={<Footer />}
     >
       <SEO title="Home" />
-      <h1
-        css={css`
-          display: inline-block;
-          border-bottom: 1px solid;
-        `}
-      >
-        Knolwdge Base
-      </h1>
       <Heading>Tags</Heading>
       <ul
         css={css`
