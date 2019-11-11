@@ -4,6 +4,7 @@ const fs = require('fs')
 const exec = util.promisify(require('child_process').exec)
 
 const readdir = util.promisify(fs.readdir)
+const readFile = util.promisify(fs.readFile)
 
 describe('decaffeine CLI', () => {
   it('command omitted', async () => {
@@ -37,6 +38,13 @@ describe('decaffeine build', () => {
     expect(pfiles).toContain('post2')
     expect(pfiles).toContain('post3')
     expect(pfiles).toContain('post4')
+
+    // Asserts index.html
+    const indexHtml = await readFile(`${projectPath}/dist/index.html`, 'utf8')
+    expect(indexHtml).toMatch('a post has many contents.')
+    expect(indexHtml).toMatch('a tag with whitespaces')
+    expect(indexHtml).toMatch('duplcated tag post')
+    expect(indexHtml).toMatch('(Untitled Post)')
   })
 
   it('multiple builds should work.', async () => {
