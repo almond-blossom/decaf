@@ -1,13 +1,12 @@
+import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
-import { css } from '@emotion/core'
-import PageTemplate from '../../templates/PageTemplate'
+import Heading from '../../atoms/Heading'
+import Footer from '../../organisms/Footer'
+import Header from '../../organisms/Header'
+import TagMenu from '../../organisms/TagMenu'
 import Posts from '../../Posts'
 import SEO from '../../SEO'
-import Heading from '../../atoms/Heading'
-import Tag from '../../molecules/Tag'
-import Header from '../../organisms/Header'
-import Footer from '../../organisms/Footer'
+import PageTemplate from '../../templates/PageTemplate'
 
 const HomePage = () => {
   const data = useStaticQuery(graphql`
@@ -43,20 +42,7 @@ const HomePage = () => {
       footer={<Footer />}
     >
       <SEO title="Home" />
-      <Heading>Tags</Heading>
-      <ul
-        css={css`
-          list-style-type: none;
-          display: flex;
-          flex-wrap: wrap;
-        `}
-      >
-        {data.allMarkdownRemark.group.map((tag) => (
-          <li key={tag.fieldValue}>
-            <Tag name={tag.fieldValue} count={tag.totalCount} />
-          </li>
-        ))}
-      </ul>
+      <TagMenu tagGroup={data.allMarkdownRemark.group} />
       <Heading>{data.allMarkdownRemark.totalCount} Posts</Heading>
       <Posts data={data} />
     </PageTemplate>
