@@ -5,18 +5,33 @@ import Tag from '../../molecules/Tag'
 import Heading from '../../atoms/Heading'
 
 const TagMenu = ({ tagGroup }) => (
-  <div>
+  <div
+    css={css`
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2em;
+    `}
+  >
     <Heading>Tag menu</Heading>
     <ul
       css={css`
-        list-style-type: none;
         display: flex;
-        flex-wrap: wrap;
+        flex-flow: wrap;
+        list-style-type: none;
+        margin: 0;
       `}
     >
       {tagGroup.map((tag) => (
-        <li key={tag.fieldValue}>
-          <Tag name={tag.fieldValue} count={tag.totalCount} />
+        <li
+          css={css`
+            margin: 0;
+          `}
+          key={tag.fieldValue}
+        >
+          <Tag
+            name={tag.fieldValue}
+            count={tag.totalCount}
+          />
         </li>
       ))}
     </ul>
