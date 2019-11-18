@@ -1,12 +1,23 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
-import Heading from '../../atoms/Heading'
 import Footer from '../../organisms/Footer'
 import Header from '../../organisms/Header'
 import TagMenu from '../../organisms/TagMenu'
-import Posts from '../../Posts'
+import Posts from '../../organisms/Posts'
 import SEO from '../../SEO'
 import PageTemplate from '../../templates/PageTemplate'
+
+const resolveHeading = (headings) => {
+  const found = headings.find((v) => v.depth === 1)
+  return found ? found.value : ''
+}
+
+const mapPost = (post) => ({
+  id: post.node.id,
+  path: post.node.fields.slug,
+  title: resolveHeading(post.node.headings),
+  tags: post.node.frontmatter.tags,
+})
 
 const HomePage = () => {
   const data = useStaticQuery(graphql`
@@ -26,7 +37,6 @@ const HomePage = () => {
             fields {
               slug
             }
-            excerpt
             headings {
               depth
               value
@@ -43,8 +53,10 @@ const HomePage = () => {
     >
       <SEO title="Home" />
       <TagMenu tagGroup={data.allMarkdownRemark.group} />
-      <Heading>{data.allMarkdownRemark.totalCount} Posts</Heading>
-      <Posts data={data} />
+      <Posts
+        posts={data.allMarkdownRemark.edges.map(mapPost)}
+        totalCount={data.allMarkdownRemark.totalCount}
+      />
     </PageTemplate>
   )
 }
