@@ -76,6 +76,9 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
             return [...new Set(tags)]
           },
         },
+        date: {
+          type: 'Date',
+        }
       },
       interfaces: ['Node'],
     }),
