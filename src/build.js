@@ -11,6 +11,7 @@ module.exports = async (dpath) => {
   const { docsPath } = await loadConfig(dpath)
 
   await exec(`rm -rf ${gpath}/.cache ${gpath}/public`)
+  await exec(`mkdir ${gpath}/src/markdown-pages/`)
   await exec(`cp -r ${docsPath} ${gpath}/src/markdown-pages/`)
   await exec(`cd ${gpath} && npm i && ./node_modules/.bin/gatsby build`)
   await exec(`mv ${gpath}/public/ ${dpath}/dist/`)
