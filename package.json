@@ -13,6 +13,9 @@
   "scripts": {
     "test": "jest"
   },
+  "bin": {
+    "decaf": "./bin/decaffeine"
+  },
   "jest": {
     "testRegex": "(^tests/.*|(\\.|/)(test|spec))\\.js$",
     "setupFilesAfterEnv": [
