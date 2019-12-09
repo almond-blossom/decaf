@@ -7,12 +7,16 @@ const loadConfig = require('./loadConfig')
  * @param dpath {string}
  */
 module.exports = async (dpath) => {
-  const gpath = path.resolve(__dirname, '..', 'gatsby')
+  const gatsby = path.resolve(__dirname, '..', 'gatsby')
   const { docsPath } = await loadConfig(dpath)
+  const decaf = `${dpath}/.decaf`
+  const gatsbyBin = `${decaf}/node_modules/.bin/gatsby`
 
-  await exec(`rm -rf ${gpath}/.cache ${gpath}/public`)
-  await exec(`mkdir ${gpath}/src/markdown-pages/`)
-  await exec(`cp -r ${docsPath} ${gpath}/src/markdown-pages/`)
-  await exec(`cd ${gpath} && npm i && ./node_modules/.bin/gatsby build`)
-  await exec(`mv ${gpath}/public/ ${dpath}/dist/`)
+  await exec(`cp -rn ${gatsby} ${decaf} || true`)
+  await exec(`cd ${decaf} && npm i`)
+  await exec(`cd ${decaf} && ${gatsbyBin} clean`)
+  await exec(`mkdir -p ${decaf}/src/markdown-pages/`)
+  await exec(`cp -r ${docsPath} ${decaf}/src/markdown-pages/`)
+  await exec(`cd ${decaf} && ${gatsbyBin} build`)
+  await exec(`rm -rf ${dpath}/dist && mv ${decaf}/public ${dpath}/dist`)
 }
