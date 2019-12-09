@@ -27,6 +27,7 @@ if (!cls) {
 
 cls().catch((e) => {
   // eslint-disable-next-line no-console
-  console.error(`=== DECAFFEINE ERR\n${e}`)
+  console.error(`=== DECAFFEINE ERR`)
+  console.error(e)
   process.exit(1)
 })
