@@ -21,6 +21,6 @@
     "setupFilesAfterEnv": [
       "./tests/e2e/jest/setup.js"
     ],
-    "testTimeout": 100000
+    "testTimeout": 500000
   }
 }
