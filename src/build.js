@@ -12,7 +12,7 @@ module.exports = async (dpath) => {
   const decaf = `${dpath}/.decaf`
   const gatsbyBin = `${decaf}/node_modules/.bin/gatsby`
 
-  await exec(`cp -rn ${gatsby} ${decaf} || true`)
+  await exec(`cp -rf ${gatsby}/. ${decaf} || true`)
   await exec(`cd ${decaf} && npm i`)
   await exec(`cd ${decaf} && ${gatsbyBin} clean`)
   await exec(`mkdir -p ${decaf}/src/markdown-pages/`)
