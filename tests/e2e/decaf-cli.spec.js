@@ -6,16 +6,16 @@ const exec = util.promisify(require('child_process').exec)
 const readdir = util.promisify(fs.readdir)
 const readFile = util.promisify(fs.readFile)
 
-describe('decaffeine CLI', () => {
+describe('decaf CLI', () => {
   it('command omitted', async () => {
-    await expect(exec('./bin/decaffeine')).rejects.toThrow()
+    await expect(exec('./bin/decaf')).rejects.toThrow()
   })
 })
 
-describe('decaffeine build', () => {
+describe('decaf build', () => {
   async function execBuild() {
     const projectPath = path.resolve('tests', 'test-site')
-    const command = './../../bin/decaffeine build'
+    const command = './../../bin/decaf build'
 
     const { stdout } = await exec(`cd ${projectPath} && ${command}`)
     return { stdout, projectPath }
