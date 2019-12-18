@@ -1,5 +1,5 @@
 {
-  "name": "decaffeine",
+  "name": "decaf",
   "private": true,
   "version": "0.1.0",
   "devDependencies": {
@@ -14,7 +14,7 @@
     "test": "jest"
   },
   "bin": {
-    "decaf": "./bin/decaffeine"
+    "decaf": "./bin/decaf"
   },
   "jest": {
     "testRegex": "(^tests/.*|(\\.|/)(test|spec))\\.js$",
