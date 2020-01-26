@@ -56,6 +56,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 exports.createSchemaCustomization = ({ actions, schema }) => {
   const { createTypes } = actions
   const typeDefs = [
+    // MarkdownReamrk node에 frontmatter 필드 추가.
     schema.buildObjectType({
       name: 'MarkdownRemark',
       fields: {
@@ -63,6 +64,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       },
       interfaces: ['Node'],
     }),
+    // frontamtter spec.
     schema.buildObjectType({
       name: 'Frontmatter',
       fields: {
@@ -78,7 +80,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         },
         date: {
           type: 'Date',
-        }
+        },
       },
       interfaces: ['Node'],
     }),
