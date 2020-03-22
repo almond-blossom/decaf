@@ -2,6 +2,8 @@ const util = require('util')
 const path = require('path')
 const exec = util.promisify(require('child_process').exec)
 const loadConfig = require('./loadConfig')
+const npmi = require('./utils/npm-install')
+const fs = require('fs-extra')
 
 /**
  * @param dpath {string}
@@ -10,13 +12,15 @@ module.exports = async (dpath) => {
   const gatsby = path.resolve(__dirname, '..', 'gatsby')
   const { docsPath } = await loadConfig(dpath)
   const decaf = `${dpath}/.decaf`
+  const decafDocsPath = `${decaf}/src/markdown-pages/${path.basename(docsPath)}`
   const gatsbyBin = `${decaf}/node_modules/.bin/gatsby`
 
-  await exec(`cp -rf ${gatsby}/. ${decaf} || true`)
-  await exec(`cd ${decaf} && npm i`)
+  await fs.remove(decaf)
+  await fs.copy(gatsby, decaf)
+  await npmi(decaf)
   await exec(`cd ${decaf} && ${gatsbyBin} clean`)
-  await exec(`mkdir -p ${decaf}/src/markdown-pages/`)
-  await exec(`cp -r ${docsPath} ${decaf}/src/markdown-pages/`)
+  await fs.mkdirp(decafDocsPath)
+  await fs.copy(docsPath, decafDocsPath)
   await exec(`cd ${decaf} && ${gatsbyBin} build`)
   await exec(`rm -rf ${dpath}/dist && mv ${decaf}/public ${dpath}/dist`)
 }

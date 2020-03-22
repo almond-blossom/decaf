@@ -22,5 +22,9 @@
       "./tests/e2e/jest/setup.js"
     ],
     "testTimeout": 500000
+  },
+  "dependencies": {
+    "fs-extra": "^9.0.0",
+    "npm": "^6.14.3"
   }
 }
