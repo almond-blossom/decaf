@@ -1,9 +1,9 @@
 const util = require('util')
 const path = require('path')
 const exec = util.promisify(require('child_process').exec)
+const fs = require('fs-extra')
 const loadConfig = require('./loadConfig')
 const npmi = require('./utils/npm-install')
-const fs = require('fs-extra')
 
 /**
  * @param dpath {string}
@@ -22,5 +22,6 @@ module.exports = async (dpath) => {
   await fs.mkdirp(decafDocsPath)
   await fs.copy(docsPath, decafDocsPath)
   await exec(`cd ${decaf} && ${gatsbyBin} build`)
-  await exec(`rm -rf ${dpath}/dist && mv ${decaf}/public ${dpath}/dist`)
+  await fs.remove(`${dpath}/dist`)
+  await fs.move(`${decaf}/public`, `${dpath}/dist`)
 }
